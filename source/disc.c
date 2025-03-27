@@ -48,8 +48,8 @@ void Disc_SetLowMem(u32 IOS)
 	*Sys_Magic			= 0x0D15EA5E; // Standard Boot Code
 	*Sys_Version		= 0x00000001; // Version
 	*Arena_L			= 0x00000000; // Arena Low
-	*Bus_Speed			= 0x08B0BB40; // Console Bus Speed
-	*CPU_Speed			= 0x3B8B87C0; // Console CPU Speed
+	*Bus_Speed			= 0x0E7BE2C0; // Console Bus Speed
+	*CPU_Speed			= 0x27B25A80 ; // Console CPU Speed
 	*Assembler			= 0x38A00040; // Assembler
 	*OS_Thread			= 0x80431A80; // Thread Init
 	*Dev_Debugger		= 0x81800000; // Dev Debugger Monitor Address

@@ -726,7 +726,7 @@ static void toggle_widescreen()
     if (widescreen) {
         nextmode.viWidth = 1920;
     } else {
-        nextmode.viWidth = 1920;
+        nextmode.viWidth = 640;
     }
     nextmode.viXOrigin = (max_width - nextmode.viWidth) / 2;
 }
@@ -805,7 +805,7 @@ int main()
         set_drawing_state(STATE_TEXT);
         draw_text();
 
-		toggle_widescreen();
+		//toggle_widescreen();
 		apply_settings();
 
 
