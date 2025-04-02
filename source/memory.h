@@ -20,7 +20,7 @@
 #define	 Simulated_Mem	((vu32*)0x800000F0)
 #define	 BI2			((vu32*)0x800000F4)
 #define	 Bus_Speed		((vu32*)0x800000F8)
-#define	 CPU_Speed		((vu32*)0x800000FC)
+#define	 CPU_Speed ((long long*)0x800000FC)
 #define  Current_IOS	((vu32*)0x80003140)
 #define	 Online_Check	((vu32*)0x80003180)
 #define	 GameID_Address	((vu32*)0x80003184)

@@ -45,16 +45,16 @@ void Disc_SetLowMemPre()
 void Disc_SetLowMem(u32 IOS)
 {
 	/* Setup low memory */
-	*Sys_Magic			= 0x0D15EA5E; // Standard Boot Code
-	*Sys_Version		= 0x00000001; // Version
-	*Arena_L			= 0x00000000; // Arena Low
-	*Bus_Speed			= 0x0E7BE2C0; // Console Bus Speed
-	*CPU_Speed			= 0x27B25A80 ; // Console CPU Speed
-	*Assembler			= 0x38A00040; // Assembler
-	*OS_Thread			= 0x80431A80; // Thread Init
-	*Dev_Debugger		= 0x81800000; // Dev Debugger Monitor Address
-	*Simulated_Mem		= 0x01800000; // Simulated Memory Size
-	*GameID_Address		= 0x80000000; // Fix for Sam & Max (WiiPower)
+	*Sys_Magic			= 0x000D15EA5E; // Standard Boot Code
+	*Sys_Version		= 0x0000000001; // Version
+	*Arena_L			= 0x0000000000; // Arena Low
+	*Bus_Speed			= 0x0008BCED83; // Console Bus Speed
+	*CPU_Speed			= 0x013A91665A; // Console CPU Speed
+	*Assembler			= 0x0038A00040; // Assembler
+	*OS_Thread			= 0x0080431A80; // Thread Init
+	*Dev_Debugger		= 0x0081800000; // Dev Debugger Monitor Address
+	*Simulated_Mem		= 0x0001800000; // Simulated Memory Size
+	*GameID_Address		= 0x0080000000; // Fix for Sam & Max (WiiPower)
 
 	/* Copy Disc ID */
 	memcpy((void*)Online_Check, (void*)Disc_ID, 4);
@@ -180,6 +180,10 @@ GXRModeObj *Disc_SelectVMode(u32 *rmode_reg)
 			}
 			break;
 	}
+	rmode->fbWidth = 1920;
+    rmode->efbHeight = 1080;
+    rmode->viWidth = 1920;
+    rmode->viHeight = 1080;
 	return rmode;
 }
 
@@ -188,6 +192,12 @@ void Disc_SetVMode(GXRModeObj *rmode, u32 rmode_reg)
 	/* Set video mode register */
 	*Video_Mode = rmode_reg;
 	DCFlushRange((void*)Video_Mode, 4);
+
+	
+	rmode->fbWidth = 1920;
+    rmode->efbHeight = 1080;
+    rmode->viWidth = 1920;
+    rmode->viHeight = 1080;
 
 	/* Set video mode */
 	if(rmode != 0)

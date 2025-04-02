@@ -490,6 +490,11 @@ static void setup_viewport()
 
     //w = rmode.fbWidth;
     //h = rmode.efbHeight;
+    rmode.fbWidth = 1920;
+    rmode.efbHeight = 1080;
+    rmode.viWidth = 1920;
+    rmode.viHeight = 1080;
+    //rmode.xfbHeight = 1080;
 
 	w = 1920;
 	h = 1080;
@@ -504,8 +509,8 @@ static void setup_viewport()
     GX_SetDispCopyYScale(yscale);
     GX_SetScissor(0, 0, w, h);
     GX_SetDispCopySrc(0, 0, w, h);
-    GX_SetDispCopyDst(w, rmode.xfbHeight);
-    GX_SetCopyFilter(rmode.aa, rmode.sample_pattern, GX_TRUE, rmode.vfilter);
+    GX_SetDispCopyDst(w, h);
+    GX_SetCopyFilter(0, rmode.sample_pattern, GX_FALSE, rmode.vfilter);
 }
 
 static int process_string(const char *text, int should_draw)
@@ -726,14 +731,24 @@ static void toggle_widescreen()
     if (widescreen) {
         nextmode.viWidth = 1920;
     } else {
-        nextmode.viWidth = 640;
+        nextmode.viWidth = 1920;
     }
     nextmode.viXOrigin = (max_width - nextmode.viWidth) / 2;
 }
 
 int main()
 {
+    #define RETURNTIDTHIS 0x000100014D435353 //change to hex of title id for the channel you are making of the compiled dol
+
 	const GXRModeObj *vmode;
+
+    nextmode.fbWidth = 1920;
+    nextmode.efbHeight = 1080;
+    nextmode.viHeight = 1080;
+    nextmode.viWidth = 1920;
+    nextmode.viXOrigin = 0;
+    nextmode.viYOrigin = 0;
+
 
     // Initialise the video system
     VIDEO_Init();
@@ -869,13 +884,13 @@ int main()
 			size_t fsize = 0;
 			/* read in cheats */
 			WDVD_ReadDiskId((u8*)Disc_ID);
-			const DISC_INTERFACE *sd = &__io_wiisd;
+			/*const DISC_INTERFACE *sd = &__io_wiisd;
 			sd->startup();
 			if(sd->isInserted())
 				gprintf("sd inserted!\n");
 			fatMountSimple("sd", sd);
 			/* gameconfig */
-			if((*(u32*)Disc_ID & 0xFFFFFF00) == 0x52534200)//rsb?01 brawl
+			/*if((*(u32*)Disc_ID & 0xFFFFFF00) == 0x52534200)//rsb?01 brawl
 				app_gameconfig_load((char*)Disc_ID, (u8*)gameconfig_ssbb, gameconfig_ssbb_size);
 			else if(*(u32*)Disc_ID == 0x53554B45)//suke01 kirby
 				app_gameconfig_load((char*)Disc_ID, (u8*)gameconfig_kirby, gameconfig_kirby_size);			
@@ -895,7 +910,7 @@ int main()
 				}
 			}
 			/* gct */
-			char gamepath[22];
+			/*char gamepath[22];
 			if((*(u32*)Disc_ID & 0xFFFFFF00) == 0x52534200)//rsb?01 brawl
 			{
 				PAD_ScanPads();
@@ -928,7 +943,7 @@ int main()
 				free(cheats);
 			}
 			fatUnmount("sd");
-			sd->shutdown();
+			sd->shutdown();*/
 			/* Find our Partition */
 			u32 offset = 0;
 			Disc_FindPartition(&offset);
@@ -960,6 +975,7 @@ int main()
 			__exception_closeall();
 			/* Originally from tueidj - taken from NeoGamma (thx) */
 			*(vu32*)0xCC003024 = 1;
+            //apply_settings();
 			/* Boot */
 			if(hooktype == 0)				
 			{
@@ -995,7 +1011,7 @@ int main()
 	WII_LaunchTitle(HBC_JODI);
 	WII_LaunchTitle(HBC_HAXX); */
  /* Fail, goto System Menu    */
-	WII_LaunchTitle(SYSTEM_MENU);
+	WII_LaunchTitle(RETURNTIDTHIS);
 	return 0;
 }
 
