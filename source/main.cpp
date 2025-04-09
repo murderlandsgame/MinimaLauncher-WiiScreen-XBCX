@@ -738,7 +738,7 @@ static void toggle_widescreen()
 
 int main()
 {
-    #define RETURNTIDTHIS 0x000100014D435353 //change to hex of title id for the channel you are making of the compiled dol
+    #define RETURNTIDTHIS 0x0001000135474833 //change to hex of title id for the channel you are making of the compiled dol
 
 	const GXRModeObj *vmode;
 
